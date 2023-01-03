@@ -1,6 +1,6 @@
 <?php
 
-namespace Tuurbo\Spreedly;
+namespace Fattmerchant\Spreedly;
 
 class Transaction
 {
@@ -11,7 +11,7 @@ class Transaction
     /**
      * Create a Guzzle instance and set token.
      *
-     * @param \Tuurbo\Spreedly\Client $client
+     * @param \Fattmerchant\Spreedly\Client $client
      * @param array              $config
      * @param string             $transactionToken optional
      */
@@ -33,17 +33,17 @@ class Transaction
      *
      * @param string $transactionToken optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function all($transactionToken = null)
     {
         $append = '';
 
         if ($transactionToken) {
-            $append = '?since_token='.$transactionToken;
+            $append = '?since_token=' . $transactionToken;
         }
 
-        return $this->client->get('v1/transactions.json'.$append);
+        return $this->client->get('v1/transactions.json' . $append);
     }
 
     /**
@@ -55,7 +55,7 @@ class Transaction
      *
      * @param string $transactionToken optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function referencing($offset = null, $count = null, $reverse = false)
     {
@@ -109,7 +109,7 @@ class Transaction
      *		Spreedly::transaction($transactionToken)->get();
      * </code>
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function get()
     {
@@ -117,7 +117,7 @@ class Transaction
             throw new Exceptions\MissingTransactionTokenException();
         }
 
-        return $this->client->get('v1/transactions/'.$this->transactionToken.'.json');
+        return $this->client->get('v1/transactions/' . $this->transactionToken . '.json');
     }
 
     /**
@@ -127,7 +127,7 @@ class Transaction
      *		Spreedly::transaction($transactionToken)->transcript();
      * </code>
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function transcript()
     {
@@ -135,7 +135,7 @@ class Transaction
             throw new Exceptions\MissingTransactionTokenException();
         }
 
-        return $this->client->get('v1/transactions/'.$this->transactionToken.'/transcript');
+        return $this->client->get('v1/transactions/' . $this->transactionToken . '/transcript');
     }
 
     /**
@@ -149,7 +149,7 @@ class Transaction
      * @param string   $currency
      * @param array    $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function capture($amount = null, $currency = null, array $data = [])
     {
@@ -167,7 +167,7 @@ class Transaction
 
         $params['transaction'] += $data;
 
-        return $this->client->post('v1/transactions/'.$this->transactionToken.'/capture.json', $params);
+        return $this->client->post('v1/transactions/' . $this->transactionToken . '/capture.json', $params);
     }
 
     /**
@@ -209,7 +209,7 @@ class Transaction
             $params['transaction'] = $data;
         }
 
-        return $this->client->post('v1/transactions/'.$this->transactionToken.'/credit.json', $params);
+        return $this->client->post('v1/transactions/' . $this->transactionToken . '/credit.json', $params);
     }
 
     /**
@@ -253,7 +253,7 @@ class Transaction
 
         $params['transaction'] += $data;
 
-        return $this->client->post('v1/transactions/'.$this->transactionToken.'/purchase.json', $params);
+        return $this->client->post('v1/transactions/' . $this->transactionToken . '/purchase.json', $params);
     }
 
     /**
@@ -277,7 +277,7 @@ class Transaction
             throw new Exceptions\MissingTransactionTokenException();
         }
 
-        return $this->client->post('v1/transactions/'.$this->transactionToken.'/void.json', $data);
+        return $this->client->post('v1/transactions/' . $this->transactionToken . '/void.json', $data);
     }
 
     /**
@@ -300,7 +300,7 @@ class Transaction
             throw new Exceptions\MissingTransactionTokenException();
         }
 
-        return $this->client->post('v1/transactions/'.$this->transactionToken.'/complete.json', $data);
+        return $this->client->post('v1/transactions/' . $this->transactionToken . '/complete.json', $data);
     }
 
     /**
@@ -311,6 +311,6 @@ class Transaction
      */
     public function __call($method, $parameters)
     {
-        throw new Exceptions\InvalidPaymentMethodException($method.' is an invalid payment method.');
+        throw new Exceptions\InvalidPaymentMethodException($method . ' is an invalid payment method.');
     }
 }

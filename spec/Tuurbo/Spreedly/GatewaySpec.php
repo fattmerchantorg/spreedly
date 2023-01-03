@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Tuurbo\Spreedly;
+namespace spec\Fattmerchant\Spreedly;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Tuurbo\Spreedly\Client;
+use Fattmerchant\Spreedly\Client;
 
 class GatewaySpec extends ObjectBehavior
 {
@@ -15,7 +15,7 @@ class GatewaySpec extends ObjectBehavior
     {
         $this->beConstructedWith($client, [], self::GATEWAY_TOKEN);
 
-        $this->shouldHaveType('Tuurbo\Spreedly\Gateway');
+        $this->shouldHaveType('Fattmerchant\Spreedly\Gateway');
     }
 
     public function it_requests_a_list_of_supported_gateways($client)
@@ -24,7 +24,7 @@ class GatewaySpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->all()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->all()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_requests_all_gateways_you_have_created($client)
@@ -33,34 +33,34 @@ class GatewaySpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->all()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->all()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_requests_a_specfic_gateway_you_have_created($client)
     {
-        $client->get('v1/gateways/'.self::GATEWAY_TOKEN.'.json')
+        $client->get('v1/gateways/' . self::GATEWAY_TOKEN . '.json')
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->show()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->show()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_requests_all_gateways_after_a_specified_token($client)
     {
-        $client->get('v1/gateways.json?since_token='.self::GATEWAY_TOKEN)
+        $client->get('v1/gateways.json?since_token=' . self::GATEWAY_TOKEN)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->all(self::GATEWAY_TOKEN)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->all(self::GATEWAY_TOKEN)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_gets_a_list_of_all_gateway_transactions_for_a_single_gateway($client)
     {
-        $client->get('v1/gateways/'.self::GATEWAY_TOKEN.'/transactions.json', Argument::type('array'))
+        $client->get('v1/gateways/' . self::GATEWAY_TOKEN . '/transactions.json', Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->transactions()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->transactions()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_gets_a_list_of_all_gateway_transactions_for_a_single_gateway_and_paginates($client)
@@ -69,11 +69,11 @@ class GatewaySpec extends ObjectBehavior
             'order' => 'desc',
         ];
 
-        $client->get('v1/gateways/'.self::GATEWAY_TOKEN.'/transactions.json?since_token='.self::PAYMENT_TOKEN, $data)
+        $client->get('v1/gateways/' . self::GATEWAY_TOKEN . '/transactions.json?since_token=' . self::PAYMENT_TOKEN, $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->transactions(self::PAYMENT_TOKEN, $data)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->transactions(self::PAYMENT_TOKEN, $data)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_creates_a_gateway($client)
@@ -82,27 +82,27 @@ class GatewaySpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->create('PAYPAL')->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->create('PAYPAL')->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_updates_a_gateway($client)
     {
-        $client->put('v1/gateways/'.self::GATEWAY_TOKEN.'.json', Argument::type('array'))
+        $client->put('v1/gateways/' . self::GATEWAY_TOKEN . '.json', Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn($client);
 
         $this->update([
-                'password' => 'test',
-            ])->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+            'password' => 'test',
+        ])->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_disables_a_gateway($client)
     {
-        $client->put('v1/gateways/'.self::GATEWAY_TOKEN.'/redact.json')
+        $client->put('v1/gateways/' . self::GATEWAY_TOKEN . '/redact.json')
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->disable()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->disable()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_returns_the_gateway_token($client)
@@ -112,6 +112,6 @@ class GatewaySpec extends ObjectBehavior
 
     public function it_returns_a_payment_instance($client)
     {
-        $this->payment()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Payment');
+        $this->payment()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Payment');
     }
 }

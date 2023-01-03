@@ -1,6 +1,6 @@
 <?php
 
-namespace Tuurbo\Spreedly;
+namespace Fattmerchant\Spreedly;
 
 class Gateway
 {
@@ -11,7 +11,7 @@ class Gateway
     /**
      * Create a Guzzle instance and set token.
      *
-     * @param \Tuurbo\Spreedly\Client $client
+     * @param \Fattmerchant\Spreedly\Client $client
      * @param array              $config
      * @param string             $gatewayToken optional
      */
@@ -29,7 +29,7 @@ class Gateway
      *		Spreedly::gateway()->setup();
      * </code>
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function setup()
     {
@@ -45,17 +45,17 @@ class Gateway
      *
      * @param string $gatewayToken optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function all($gatewayToken = null)
     {
         $append = '';
 
         if ($gatewayToken) {
-            $append = '?since_token='.$gatewayToken;
+            $append = '?since_token=' . $gatewayToken;
         }
 
-        return $this->client->get('v1/gateways.json'.$append);
+        return $this->client->get('v1/gateways.json' . $append);
     }
 
     /**
@@ -65,11 +65,11 @@ class Gateway
      *		Spreedly::gateway($gatewayToken)->show();
      * </code>
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function show()
     {
-        return $this->client->get('v1/gateways/'.$this->gatewayToken.'.json');
+        return $this->client->get('v1/gateways/' . $this->gatewayToken . '.json');
     }
 
     /**
@@ -83,7 +83,7 @@ class Gateway
      * @param string $gateway
      * @param array  $data    optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function create($gateway, array $data = null)
     {
@@ -112,7 +112,7 @@ class Gateway
      *
      * @param array $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function update(array $data)
     {
@@ -124,7 +124,7 @@ class Gateway
             'gateway' => $data,
         ];
 
-        return $this->client->put('v1/gateways/'.$this->gatewayToken.'.json', $params);
+        return $this->client->put('v1/gateways/' . $this->gatewayToken . '.json', $params);
     }
 
     /**
@@ -134,7 +134,7 @@ class Gateway
      *		Spreedly::gateway($gatewayToken)->disable();
      * </code>
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function disable()
     {
@@ -142,11 +142,11 @@ class Gateway
             throw new Exceptions\MissingGatewayTokenException();
         }
 
-        return $this->client->put('v1/gateways/'.$this->gatewayToken.'/redact.json');
+        return $this->client->put('v1/gateways/' . $this->gatewayToken . '/redact.json');
     }
 
     /**
-     * Handle dynamic calls for \Tuurbo\Spreedly\Payment.
+     * Handle dynamic calls for \Fattmerchant\Spreedly\Payment.
      *
      * Useful when you don't want to use the default gateway.
      *
@@ -186,7 +186,7 @@ class Gateway
      *
      * @link https://docs.spreedly.com/reference/api/v1/gateways/transactions/
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function transactions($paymentToken = null, array $data = [])
     {
@@ -197,10 +197,10 @@ class Gateway
         $append = '';
 
         if ($paymentToken) {
-            $append = '?since_token='.$paymentToken;
+            $append = '?since_token=' . $paymentToken;
         }
 
-        return $this->client->get('v1/gateways/'.$this->gatewayToken.'/transactions.json'.$append, $data);
+        return $this->client->get('v1/gateways/' . $this->gatewayToken . '/transactions.json' . $append, $data);
     }
 
     /**

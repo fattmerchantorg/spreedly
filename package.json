@@ -10,13 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tuurbo/spreedly.git"
+    "url": "git+https://github.com/fattmerchantorg/spreedly.git"
   },
   "keywords": [],
-  "author": "https://github.com/tuurbo",
+  "author": "https://github.com/fattmerchantorg",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tuurbo/spreedly/issues"
+    "url": "https://github.com/fattmerchantorg/spreedly/issues"
   },
-  "homepage": "https://github.com/tuurbo/spreedly#readme"
+  "homepage": "https://github.com/fattmerchantorg/spreedly#readme"
 }

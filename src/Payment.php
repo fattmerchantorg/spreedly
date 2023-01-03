@@ -1,6 +1,6 @@
 <?php
 
-namespace Tuurbo\Spreedly;
+namespace Fattmerchant\Spreedly;
 
 class Payment
 {
@@ -12,7 +12,7 @@ class Payment
     /**
      * Create a Guzzle instance and set tokens.
      *
-     * @param \Tuurbo\Spreedly\Client $client
+     * @param \Fattmerchant\Spreedly\Client $client
      * @param array              $config
      * @param string             $paymentToken optional
      * @param string             $gatewayToken optional
@@ -30,17 +30,17 @@ class Payment
      *
      * @param string $paymentToken optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function all($paymentToken = null)
     {
         $append = '';
 
         if ($paymentToken) {
-            $append = '?since_token='.$paymentToken;
+            $append = '?since_token=' . $paymentToken;
         }
 
-        return $this->client->get('v1/payment_methods.json'.$append);
+        return $this->client->get('v1/payment_methods.json' . $append);
     }
 
     /**
@@ -48,7 +48,7 @@ class Payment
      *
      * @param array $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function create(array $data)
     {
@@ -64,7 +64,7 @@ class Payment
      *
      * @param array $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function update(array $data)
     {
@@ -76,13 +76,13 @@ class Payment
             'payment_method' => $data,
         ];
 
-        return $this->client->put('v1/payment_methods/'.$this->paymentToken.'.json', $params);
+        return $this->client->put('v1/payment_methods/' . $this->paymentToken . '.json', $params);
     }
 
     /**
      * Retain a payment method on Spreedly.
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function retain()
     {
@@ -90,13 +90,13 @@ class Payment
             throw new Exceptions\MissingPaymentTokenException();
         }
 
-        return $this->client->put('v1/payment_methods/'.$this->paymentToken.'/retain.json');
+        return $this->client->put('v1/payment_methods/' . $this->paymentToken . '/retain.json');
     }
 
     /**
      * Update a credit card’s verification value.
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function recache($cvv)
     {
@@ -112,7 +112,7 @@ class Payment
             ],
         ];
 
-        return $this->client->post('v1/payment_methods/'.$this->paymentToken.'/recache.json', $params);
+        return $this->client->post('v1/payment_methods/' . $this->paymentToken . '/recache.json', $params);
     }
 
     /**
@@ -120,7 +120,7 @@ class Payment
      *
      * @param string $currency optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function store($currency = null)
     {
@@ -142,13 +142,13 @@ class Payment
             $params['transaction']['currency_code'] = $currency;
         }
 
-        return $this->client->post('v1/gateways/'.$this->gatewayToken.'/store.json', $params);
+        return $this->client->post('v1/gateways/' . $this->gatewayToken . '/store.json', $params);
     }
 
     /**
      * Get details of a payment method on Spreedly.
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function get()
     {
@@ -156,13 +156,13 @@ class Payment
             throw new Exceptions\MissingPaymentTokenException();
         }
 
-        return $this->client->get('v1/payment_methods/'.$this->paymentToken.'.json');
+        return $this->client->get('v1/payment_methods/' . $this->paymentToken . '.json');
     }
 
     /**
      * Disable a payment method stored on Spreedly.
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function disable()
     {
@@ -170,7 +170,7 @@ class Payment
             throw new Exceptions\MissingPaymentTokenException();
         }
 
-        return $this->client->put('v1/payment_methods/'.$this->paymentToken.'/redact.json');
+        return $this->client->put('v1/payment_methods/' . $this->paymentToken . '/redact.json');
     }
 
     /**
@@ -184,7 +184,7 @@ class Payment
      * @param string $currency
      * @param array  $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function generalCredit($amount, $currency = 'USD', array $data = [])
     {
@@ -196,7 +196,7 @@ class Payment
      *
      * @param array $params
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      *
      * @link https://docs.spreedly.com/reference/api/v1/gateways/verify/
      */
@@ -221,7 +221,7 @@ class Payment
             $params['transaction'] += $data;
         }
 
-        return $this->client->post('v1/gateways/'.$this->gatewayToken.'/verify.json', $params);
+        return $this->client->post('v1/gateways/' . $this->gatewayToken . '/verify.json', $params);
     }
 
     /**
@@ -230,7 +230,7 @@ class Payment
      * @param string $paymentToken optional
      * @param array  $data         optional
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function transactions($paymentToken = null, array $data = [])
     {
@@ -241,10 +241,10 @@ class Payment
         $append = '';
 
         if ($paymentToken) {
-            $append = '?since_token='.$paymentToken;
+            $append = '?since_token=' . $paymentToken;
         }
 
-        return $this->client->get('v1/payment_methods/'.$this->paymentToken.'/transactions.json'.$append, $data);
+        return $this->client->get('v1/payment_methods/' . $this->paymentToken . '/transactions.json' . $append, $data);
     }
 
     /**
@@ -262,7 +262,7 @@ class Payment
      * @param string $currency
      * @param array  $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function authorize($amount, $currency = 'USD', array $data = [])
     {
@@ -284,7 +284,7 @@ class Payment
      * @param string $currency
      * @param array  $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function purchase($amount, $currency = 'USD', array $data = [])
     {
@@ -299,7 +299,7 @@ class Payment
      * @param string $currency
      * @param array  $data
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      *
      * @throws Exceptions\InvalidAmountException
      * @throws Exceptions\MissingGatewayTokenException
@@ -316,7 +316,7 @@ class Payment
         }
 
         if ($amount <= 0) {
-            throw new Exceptions\InvalidAmountException($method.' method requires an amount greater than 0.');
+            throw new Exceptions\InvalidAmountException($method . ' method requires an amount greater than 0.');
         }
 
         $params = [
@@ -331,7 +331,7 @@ class Payment
             $params['transaction'] += $data;
         }
 
-        return $this->client->post('v1/gateways/'.$this->gatewayToken.'/'.$method.'.json', $params);
+        return $this->client->post('v1/gateways/' . $this->gatewayToken . '/' . $method . '.json', $params);
     }
 
     /**
@@ -342,6 +342,6 @@ class Payment
      */
     public function __call($method, $parameters)
     {
-        throw new Exceptions\InvalidPaymentMethodException($method.' is an invalid payment method.');
+        throw new Exceptions\InvalidPaymentMethodException($method . ' is an invalid payment method.');
     }
 }

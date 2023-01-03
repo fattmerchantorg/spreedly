@@ -1,6 +1,6 @@
 <?php
 
-namespace Tuurbo\Spreedly;
+namespace Fattmerchant\Spreedly;
 
 use GuzzleHttp\ClientInterface as GuzzleInterface;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
@@ -57,14 +57,14 @@ class Client
      * @param string $method optional
      * @param array  $data   optional
      *
-     * @return Tuurbo\Spreedly\Client
+     * @return Fattmerchant\Spreedly\Client
      */
     protected function request($url, $method, array $data = null)
     {
         try {
             $baseUrl = $this->config['baseUrl'];
 
-            $response = $this->client->{$method}($baseUrl.$url, $this->buildData($data));
+            $response = $this->client->{$method}($baseUrl . $url, $this->buildData($data));
 
             if (!in_array($response->getStatusCode(), [200, 201])) {
                 $contentType = $response->getHeader('Content-Type');
@@ -95,7 +95,7 @@ class Client
      *
      * @param mixed $response
      *
-     * @return Tuurbo\Spreedly\Client
+     * @return Fattmerchant\Spreedly\Client
      */
     public function setResponse($response)
     {
@@ -112,9 +112,11 @@ class Client
 
         $this->response = $response;
 
-        if ($this->response('error') ||
+        if (
+            $this->response('error') ||
             $this->response('errors') ||
-            $this->response('succeeded') === false) {
+            $this->response('succeeded') === false
+        ) {
             $this->status = 'error';
         } else {
             $this->status = 'success';

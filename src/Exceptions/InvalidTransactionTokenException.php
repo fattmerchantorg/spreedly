@@ -1,6 +1,6 @@
 <?php
 
-namespace Tuurbo\Spreedly\Exceptions;
+namespace Fattmerchant\Spreedly\Exceptions;
 
 class InvalidTransactionTokenException extends \Exception
 {

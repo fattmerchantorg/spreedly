@@ -1,6 +1,6 @@
 <?php
 
-namespace Tuurbo\Spreedly;
+namespace Fattmerchant\Spreedly;
 
 use GuzzleHttp\Client as Guzzle;
 
@@ -18,7 +18,7 @@ class Spreedly
      *
      * @param string $token optional
      *
-     * @return \Tuurbo\Spreedly\Gateway
+     * @return \Fattmerchant\Spreedly\Gateway
      */
     public function gateway($token = null)
     {
@@ -30,7 +30,7 @@ class Spreedly
      *
      * @param string $paymentToken optional
      *
-     * @return \Tuurbo\Spreedly\Payment
+     * @return \Fattmerchant\Spreedly\Payment
      */
     public function payment($paymentToken = null)
     {
@@ -42,7 +42,7 @@ class Spreedly
      *
      * @param string $token optional
      *
-     * @return \Tuurbo\Spreedly\Transaction
+     * @return \Fattmerchant\Spreedly\Transaction
      */
     public function transaction($token = null)
     {
@@ -116,7 +116,7 @@ class Spreedly
     /**
      * Create Guzzle instance.
      *
-     * @return \Tuurbo\Spreedly\Client
+     * @return \Fattmerchant\Spreedly\Client
      */
     public function client()
     {

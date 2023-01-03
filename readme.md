@@ -7,7 +7,7 @@
 Install through Composer.
 
 ```
-composer require tuurbo/spreedly
+composer require fattmerchantorg/spreedly
 ```
 
 #### Laravel 4 or 5 Setup
@@ -17,12 +17,12 @@ Next, update app/config/app.php to include a reference to this package's service
 ```php
 'providers' => [
     ...
-   'Tuurbo\Spreedly\SpreedlyServiceProvider'
+   'Fattmerchant\Spreedly\SpreedlyServiceProvider'
 ]
 
 'aliases' => [
     ...
-    'Spreedly' => 'Tuurbo\Spreedly\SpreedlyFacade'
+    'Spreedly' => 'Fattmerchant\Spreedly\SpreedlyFacade'
 ]
 ```
 
@@ -57,7 +57,7 @@ $config = [
     'connect_timeout' => '', // (optional) Default 10 seconds
 ];
 
-$spreedly = new Tuurbo\Spreedly\Spreedly($config);
+$spreedly = new Fattmerchant\Spreedly\Spreedly($config);
 
 // The amount must be an integer as per required by Spreedly. E.g., 1098 for $10.98.
 $resp = $spreedly->payment($paymentToken)->purchase(1098);
@@ -154,7 +154,7 @@ Please ensure you have added proper test coverage for each Pull Request.
 
 ### 2.4+
 
-See releases page https://github.com/tuurbo/spreedly/releases
+See releases page https://github.com/fattmerchantorg/spreedly/releases
 
 ### 2.3
 
@@ -168,7 +168,7 @@ See releases page https://github.com/tuurbo/spreedly/releases
 
 - changed default timeout from 15 seconds to 64 seconds as recommended by Spreedly.
 - added timeout method to change timeout per api call. E.g., `Spreedly::timeout(25)->payment()->purchase()`.
-- added new `Tuurbo\Spreedly\Exceptions\TimeoutException` for catching timeouts.
+- added new `Fattmerchant\Spreedly\Exceptions\TimeoutException` for catching timeouts.
 
 ### 2.0
 

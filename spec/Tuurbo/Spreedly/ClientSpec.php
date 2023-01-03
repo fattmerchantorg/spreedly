@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Tuurbo\Spreedly;
+namespace spec\Fattmerchant\Spreedly;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -26,7 +26,7 @@ class ClientSpec extends ObjectBehavior
 
     public function letGo()
     {
-        $this->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_returns_an_array()
@@ -101,7 +101,7 @@ class ClientSpec extends ObjectBehavior
 
     public function it_return_an_instance_of_itself($client)
     {
-        $client->get(self::BASE_URL.self::END_POINT, Argument::type('array'))
+        $client->get(self::BASE_URL . self::END_POINT, Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn(new ClientStub200());
 
@@ -110,17 +110,17 @@ class ClientSpec extends ObjectBehavior
 
     public function it_throws_an_exception_if_http_response_is_404($client)
     {
-        $client->get(self::BASE_URL.self::END_POINT, Argument::type('array'))
+        $client->get(self::BASE_URL . self::END_POINT, Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn(new ClientStub404());
 
-        $this->shouldThrow('Tuurbo\Spreedly\Exceptions\NotFoundHttpException')
+        $this->shouldThrow('Fattmerchant\Spreedly\Exceptions\NotFoundHttpException')
             ->duringGet(self::END_POINT);
     }
 
     public function it_sets_status_to_success_if_transaction_succeeds($client)
     {
-        $client->get(self::BASE_URL.self::END_POINT, Argument::type('array'))
+        $client->get(self::BASE_URL . self::END_POINT, Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn(new ClientStub200());
 
@@ -131,7 +131,7 @@ class ClientSpec extends ObjectBehavior
 
     public function it_sets_status_to_error_if_transaction_fails($client)
     {
-        $client->get(self::BASE_URL.self::END_POINT, Argument::type('array'))
+        $client->get(self::BASE_URL . self::END_POINT, Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn(new ClientStub500());
 
@@ -162,7 +162,7 @@ class ClientSpec extends ObjectBehavior
         $this->beConstructedWith($client, $config);
 
         // check that client really did use the overriden base url
-        $client->post($overrideBaseUrl.self::END_POINT, Argument::type('array'))
+        $client->post($overrideBaseUrl . self::END_POINT, Argument::type('array'))
             ->shouldBeCalled()
             ->willReturn(new ClientStub200());
 

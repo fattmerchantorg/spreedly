@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\Tuurbo\Spreedly;
+namespace spec\Fattmerchant\Spreedly;
 
 use PhpSpec\ObjectBehavior;
-use Tuurbo\Spreedly\Client;
+use Fattmerchant\Spreedly\Client;
 
 class TransactionSpec extends ObjectBehavior
 {
@@ -15,7 +15,7 @@ class TransactionSpec extends ObjectBehavior
     {
         $this->beConstructedWith($client, [], self::TRANSACTION_TOKEN);
 
-        $this->shouldHaveType('Tuurbo\Spreedly\Transaction');
+        $this->shouldHaveType('Fattmerchant\Spreedly\Transaction');
     }
 
     public function it_requests_all_transactions_you_have_created($client)
@@ -24,16 +24,16 @@ class TransactionSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->all()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->all()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_gets_a_single_transaction($client)
     {
-        $client->get('v1/transactions/'.self::TRANSACTION_TOKEN.'.json')
+        $client->get('v1/transactions/' . self::TRANSACTION_TOKEN . '.json')
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->get()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->get()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_makes_a_purchase($client)
@@ -47,16 +47,16 @@ class TransactionSpec extends ObjectBehavior
             ],
         ];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/purchase.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/purchase.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->purchase($amount)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->purchase($amount)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_throws_an_exception_when_trying_to_make_a_purchase_with_an_invalid_amount()
     {
-        $this->shouldThrow('Tuurbo\Spreedly\Exceptions\InvalidAmountException')
+        $this->shouldThrow('Fattmerchant\Spreedly\Exceptions\InvalidAmountException')
             ->duringPurchase(-1);
     }
 
@@ -64,11 +64,11 @@ class TransactionSpec extends ObjectBehavior
     {
         $data = [];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/void.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/void.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->void()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->void()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_credits_a_purchase($client)
@@ -82,20 +82,20 @@ class TransactionSpec extends ObjectBehavior
             ],
         ];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/credit.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/credit.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->credit($amount)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->credit($amount)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_credits_a_purchase_with_no_amount_specified($client)
     {
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/credit.json', [])
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/credit.json', [])
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->credit()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->credit()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_credits_a_purchase_with_no_amount_specified_and_with_extra_data($client)
@@ -104,11 +104,11 @@ class TransactionSpec extends ObjectBehavior
             'order_id' => 12345,
         ];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/credit.json', ['transaction' => $extra])
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/credit.json', ['transaction' => $extra])
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->credit(null, null, $extra)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->credit(null, null, $extra)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_captures_an_authorized_amount($client)
@@ -117,11 +117,11 @@ class TransactionSpec extends ObjectBehavior
             'transaction' => [],
         ];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/capture.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/capture.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->capture()->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->capture()->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_captures_a_specific_authorized_amount($client)
@@ -134,11 +134,11 @@ class TransactionSpec extends ObjectBehavior
             ],
         ];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/capture.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/capture.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->capture($amount)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->capture($amount)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_captures_a_specific_authorized_amount_and_currency($client)
@@ -153,27 +153,27 @@ class TransactionSpec extends ObjectBehavior
             ],
         ];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/capture.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/capture.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->capture($amount, $currencyCode)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->capture($amount, $currencyCode)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_completes_a_3ds2_transaction($client)
     {
         $data = [];
 
-        $client->post('v1/transactions/'.self::TRANSACTION_TOKEN.'/complete.json', $data)
+        $client->post('v1/transactions/' . self::TRANSACTION_TOKEN . '/complete.json', $data)
             ->shouldBeCalled()
             ->willReturn($client);
 
-        $this->complete($data)->shouldReturnAnInstanceOf('Tuurbo\Spreedly\Client');
+        $this->complete($data)->shouldReturnAnInstanceOf('Fattmerchant\Spreedly\Client');
     }
 
     public function it_throws_invalid_method_exception()
     {
-        $this->shouldThrow('Tuurbo\Spreedly\Exceptions\InvalidPaymentMethodException')
+        $this->shouldThrow('Fattmerchant\Spreedly\Exceptions\InvalidPaymentMethodException')
             ->during('undefinedMethod', ['some_param']);
     }
 }
