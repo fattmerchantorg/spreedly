@@ -29,10 +29,10 @@
       "Fattmerchant\\Spreedly\\": "src/"
     }
   },
-  "repositories": {
-    "fattmerchantorg": {
+  "repositories": [
+    {
       "type": "vcs",
       "url": "https://github.com/fattmerchantorg/spreedly"
     }
-  }
+  ]
 }
