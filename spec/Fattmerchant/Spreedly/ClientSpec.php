@@ -6,6 +6,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use GuzzleHttp\Psr7\Stream;
 
 class ClientSpec extends ObjectBehavior
 {
@@ -174,30 +175,36 @@ class ClientSpec extends ObjectBehavior
 
 class ClientStub200 extends GuzzleResponse
 {
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return 200;
     }
 
-    public function getHeader($header)
+    public function getHeader($header): array
     {
         return ['application/json; charset=utf-8'];
     }
 
-    public function getBody()
+    public function getBody(): Stream
     {
-        return json_encode([]);
+        $stream = fopen('php://memory', 'r+');
+        // Write some data to the stream
+        fwrite($stream, json_encode([]));
+        // Reset the stream pointer to the beginning of the stream
+        rewind($stream);
+        // Create a new Stream object with the memory stream
+        return new Stream($stream);
     }
 }
 
 class ClientStub404 extends GuzzleResponse
 {
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return 404;
     }
 
-    public function getHeader($header)
+    public function getHeader($header): array
     {
         return ['application/text; charset=utf-8'];
     }
@@ -210,12 +217,12 @@ class ClientStub404 extends GuzzleResponse
 
 class ClientStub500 extends GuzzleResponse
 {
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return 500;
     }
 
-    public function getHeader($header)
+    public function getHeader($header): array
     {
         return ['application/text; charset=utf-8'];
     }
