@@ -1,5 +1,6 @@
 {
   "name": "fattmerchantorg/spreedly",
+  "version": "1.0.0",
   "description": "Spreedly API",
   "keywords": [
     "spreedly",
