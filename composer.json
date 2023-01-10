@@ -28,5 +28,11 @@
     "psr-4": {
       "Fattmerchant\\Spreedly\\": "src/"
     }
+  },
+  "repositories": {
+    "fattmerchantorg": {
+      "type": "vcs",
+      "url": "https://github.com/fattmerchantorg/spreedly"
+    }
   }
 }
