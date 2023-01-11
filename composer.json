@@ -32,7 +32,7 @@
   "repositories": {
     "fattmerchantorg": {
       "type": "vcs",
-      "url": "https://fattmerchantorg/spreedly"
+      "url": "https://github.com/fattmerchantorg/spreedly"
     }
   }
 }
