@@ -20,6 +20,16 @@
     "url": "https://github.com/fattmerchantorg/spreedly/issues"
   },
   "homepage": "https://github.com/fattmerchantorg/spreedly#readme",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Fattmerchant\\Spreedly\\SpreedlyServiceProvider"
+      ],
+      "aliases": {
+        "Spreedly": "Fattmerchant\\Spreedly\\SpreedlyFacade"
+      }
+    }
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@fattmerchantorg"
   }
