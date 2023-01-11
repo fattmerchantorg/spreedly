@@ -1,5 +1,6 @@
 {
-  "name": "spreedly",
+  "name": "@fattmerchantorg/spreedly",
+  "version": "0.0.1",
   "description": "A simple php sdk for Spreedly.com's API.",
   "directories": {
     "doc": "docs"
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/fattmerchantorg/spreedly/issues"
   },
-  "homepage": "https://github.com/fattmerchantorg/spreedly#readme"
+  "homepage": "https://github.com/fattmerchantorg/spreedly#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@fattmerchantorg"
+  }
 }
