@@ -1,6 +1,6 @@
 {
   "name": "@fattmerchantorg/spreedly",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple php sdk for Spreedly.com's API.",
   "directories": {
     "doc": "docs"
