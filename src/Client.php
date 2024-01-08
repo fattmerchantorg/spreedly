@@ -66,25 +66,25 @@ class Client
 
             $response = $this->client->{$method}($baseUrl . $url, $this->buildData($data));
 
-            if (!in_array($response->getStatusCode(), [200, 201])) {
-                $contentType = $response->getHeader('Content-Type');
-                $notJson = array_shift($contentType) !== 'application/json; charset=utf-8';
-
-                if ($response->getStatusCode() == 404 && $notJson) {
-                    throw new Exceptions\NotFoundHttpException();
-                }
-
-                if ($response->getStatusCode() == 408) {
-                    throw new Exceptions\TimeoutException();
-                }
-
-                $this->setResponse($response);
-                $this->status = 'error';
-            } else {
-                $this->setResponse($response);
-            }
+            $this->setResponse($response);
         } catch (GuzzleConnectException $e) {
             throw new Exceptions\TimeoutException();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+            
+            $contentType = $response->getHeader('Content-Type');
+            $notJson = array_shift($contentType) !== 'application/json; charset=utf-8';
+
+            if ($response->getStatusCode() == 404 && $notJson) {
+                throw new Exceptions\NotFoundHttpException();
+            }
+
+            if ($response->getStatusCode() == 408) {
+                throw new Exceptions\TimeoutException();
+            }
+
+            $this->setResponse($response);
+            $this->status = 'error';
         }
 
         return $this;
