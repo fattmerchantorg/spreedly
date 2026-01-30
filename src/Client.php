@@ -284,17 +284,24 @@ class Client
         if (!empty($this->config['headers']) && is_array($this->config['headers'])) {
             $headers = array_merge($headers, $this->config['headers']);
         }
-        
-        return [
-            'auth' => [
-                $this->config['key'],
-                $this->config['secret'],
-            ],
+
+        $requestOptions = [
             'timeout' => isset($this->config['timeout']) ? $this->config['timeout'] : self::TIMEOUT,
             'connect_timeout' => isset($this->config['connect_timeout']) ? $this->config['connect_timeout'] : self::CONNECT_TIMEOUT,
             'exceptions' => false,
             'headers' => $headers,
             'body' => $data ? json_encode($data) : null,
         ];
+
+        // Use basic auth if no authorization header is provided (case-insensitive check)
+        $headerKeysLower = array_change_key_case($headers, CASE_LOWER);
+        if (!isset($headerKeysLower['authorization'])) {
+            $requestOptions['auth'] = [
+                $this->config['key'],
+                $this->config['secret'],
+            ];
+        }
+        
+        return $requestOptions;
     }
 }
